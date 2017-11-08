@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProjectVision</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+</resources>
