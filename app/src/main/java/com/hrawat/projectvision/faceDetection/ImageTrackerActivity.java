@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Detector;
@@ -20,7 +18,7 @@ import com.hrawat.projectvision.R;
 
 import java.io.InputStream;
 
-public class FaceTrackerActivity extends AppCompatActivity {
+public class ImageTrackerActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getSimpleName();
     private SparseArray<Face> faces;
@@ -28,8 +26,8 @@ public class FaceTrackerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_face_tracker);
-        InputStream stream = getResources().openRawResource(R.raw.face3);
+        setContentView(R.layout.activity_image_tracker);
+        InputStream stream = getResources().openRawResource(R.raw.face);
         Bitmap bitmap = BitmapFactory.decodeStream(stream);
         // A new face detector is created for detecting the face and its landmarks.
         //
@@ -76,20 +74,5 @@ public class FaceTrackerActivity extends AppCompatActivity {
         // Although detector may be used multiple times for different images, it should be released
         // when it is no longer needed in order to free native resources.
         safeDetector.release();
-        Button btnCapture=findViewById(R.id.btn_capture);
-        btnCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-        Button btnMatch=findViewById(R.id.btn_match);
-        btnMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 }

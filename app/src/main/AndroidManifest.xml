@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hrawat.projectvision">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
+        android:name=".ProjectVision"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,8 +27,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".faceDetection.FaceTrackerActivity"
+        <activity
+            android:name=".faceDetection.ImageTrackerActivity"
             android:screenOrientation="fullSensor">
         </activity>
+        <activity
+            android:name=".barcodeDetection.BarCodeActivity"
+            android:label="BarCode">
+        </activity>
+        <activity
+            android:name=".textDetection.TextDetectionActivity"
+            android:label="TextDetection"/>
+        <activity
+            android:name=".faceDetection.faceDetails.FaceTrackerActivity"
+            android:label="Face Tracker"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 </manifest>

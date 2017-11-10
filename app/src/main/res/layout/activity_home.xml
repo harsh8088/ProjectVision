@@ -9,6 +9,12 @@
     tools:context="com.hrawat.projectvision.HomeActivity">
 
     <Button
+        android:id="@+id/btn_image_detection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Image Detection"/>
+
+    <Button
         android:id="@+id/btn_face_detection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
