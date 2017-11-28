@@ -40,6 +40,8 @@ import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 import com.hrawat.projectvision.R;
+import com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview;
+import com.hrawat.projectvision.faceDetection.camera_util.GraphicOverlay;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,8 +54,8 @@ public final class FaceTrackerActivity extends AppCompatActivity {
 
     private static final String TAG = "FaceTracker";
     private CameraSource mCameraSource = null;
-    private com.hrawat.projectvision.faceDetection.faceDetails.CameraSourcePreview mPreview;
-    private com.hrawat.projectvision.faceDetection.faceDetails.GraphicOverlay mGraphicOverlay;
+    private CameraSourcePreview mPreview;
+    private GraphicOverlay mGraphicOverlay;
     private static final int RC_HANDLE_GMS = 9001;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
@@ -74,8 +76,8 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main);
-        mPreview =  findViewById(R.id.preview);
-        mGraphicOverlay = findViewById(R.id.faceOverlay);
+        mPreview = (CameraSourcePreview) findViewById(R.id.preview);
+        mGraphicOverlay = (GraphicOverlay) findViewById(R.id.faceOverlay);
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
@@ -290,10 +292,10 @@ public final class FaceTrackerActivity extends AppCompatActivity {
      */
     private class GraphicFaceTracker extends Tracker<Face> {
 
-        private com.hrawat.projectvision.faceDetection.faceDetails.GraphicOverlay mOverlay;
+        private GraphicOverlay mOverlay;
         private FaceGraphic mFaceGraphic;
 
-        GraphicFaceTracker(com.hrawat.projectvision.faceDetection.faceDetails.GraphicOverlay overlay) {
+        GraphicFaceTracker(GraphicOverlay overlay) {
             mOverlay = overlay;
             mFaceGraphic = new FaceGraphic(overlay);
         }

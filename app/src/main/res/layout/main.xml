@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     android:orientation="vertical">
 
-    <com.hrawat.projectvision.faceDetection.faceDetails.CameraSourcePreview
-        android:id="@+id/preview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <com.hrawat.projectvision.faceDetection.faceDetails.GraphicOverlay
-            android:id="@+id/faceOverlay"
+        <com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview
+            android:id="@+id/preview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.hrawat.projectvision.faceDetection.faceDetails.CameraSourcePreview>
+            android:layout_height="match_parent">
+
+            <com.hrawat.projectvision.faceDetection.camera_util.GraphicOverlay
+                android:id="@+id/faceOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/black"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -38,4 +44,4 @@
             android:text="match"
             />
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

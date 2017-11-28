@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hrawat.projectvision.faceDetection.faceDetails;
+package com.hrawat.projectvision.faceDetection.camera_util;
 
 import android.content.Context;
 import android.content.res.Configuration;

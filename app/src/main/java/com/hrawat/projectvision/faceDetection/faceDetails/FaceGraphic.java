@@ -18,12 +18,14 @@ package com.hrawat.projectvision.faceDetection.faceDetails;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.text.Layout;
-import android.text.StaticLayout;
-import android.text.TextPaint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.Landmark;
+import com.hrawat.projectvision.ProjectVisionApplication;
+import com.hrawat.projectvision.R;
+import com.hrawat.projectvision.faceDetection.camera_util.GraphicOverlay;
 
 /**
  * Graphic instance for rendering face position, orientation, and landmarks within an associated
@@ -31,12 +33,6 @@ import com.google.android.gms.vision.face.Landmark;
  */
 class FaceGraphic extends GraphicOverlay.Graphic {
 
-    private static final String WINK_LEFT_EYE = "U+1F609";
-    public static final String SMILING = "U+1F60A";
-    public static final String SMILE = "U+1F642";
-    public static final String LESS_FROWNING = "U+1F641";
-    public static final String FROWNING = "U+2639";
-    public static final String WITHOUT_MOUTH = "U+1F636";
     private static final float FACE_POSITION_RADIUS = 10.0f;
     private static final float ID_TEXT_SIZE = 40.0f;
     private static final float ID_Y_OFFSET = 50.0f;
@@ -58,7 +54,6 @@ class FaceGraphic extends GraphicOverlay.Graphic {
     private volatile Face mFace;
     private int mFaceId;
     private float mFaceHappiness;
-    private StaticLayout lsLayout;
 
     FaceGraphic(GraphicOverlay overlay) {
         super(overlay);
@@ -97,35 +92,17 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         if (face == null) {
             return;
         }
-        TextPaint textPaint = new TextPaint();
-        textPaint.setTextSize(46);
-
         // Draws a circle at the position of the detected face, with the face's track id below.
         float x = translateX(face.getPosition().x + face.getWidth() / 2);
         float y = translateY(face.getPosition().y + face.getHeight() / 2);
         canvas.drawCircle(x, y, FACE_POSITION_RADIUS, mFacePositionPaint);
         canvas.drawText("id: " + mFaceId, x + ID_X_OFFSET, y + ID_Y_OFFSET, mIdPaint);
-//        canvas.drawText("happiness: " + String.format("%.2f", face.getIsSmilingProbability()),
-//                x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
-//        canvas.drawText("right eye: " + String.format("%.2f", face.getIsRightEyeOpenProbability()),
-//                x + ID_X_OFFSET * 2, y + ID_Y_OFFSET * 2, mIdPaint);
-//        canvas.drawText("left eye: " + String.format("%.2f", face.getIsLeftEyeOpenProbability()),
-//                x - ID_X_OFFSET * 2, y - ID_Y_OFFSET * 2, mIdPaint);
-        if (face.getIsSmilingProbability() == -1) {
-            String emoji = new String(Character.toChars(0x1F910));//zipped
-            lsLayout = new StaticLayout(emoji, textPaint, 80, Layout.Alignment.ALIGN_CENTER,
-                    1, 1, true);
-        } else if (face.getIsSmilingProbability() >= .40 &&
-                face.getIsRightEyeOpenProbability() < 1.0) {
-            String emoji = new String(Character.toChars(0x1F642));//smiling
-            lsLayout = new StaticLayout(emoji, textPaint, 80, Layout.Alignment.ALIGN_CENTER,
-                    1, 1, true);
-        } else {
-            String emoji = new String(Character.toChars(0x1F610));//neutral
-            lsLayout = new StaticLayout(emoji, textPaint, 80, Layout.Alignment.ALIGN_CENTER,
-                    1, 1, true);
-        }
-        lsLayout.draw(canvas);
+        canvas.drawText("happiness: " + String.format("%.2f", face.getIsSmilingProbability()),
+                x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
+        canvas.drawText("right eye: " + String.format("%.2f", face.getIsRightEyeOpenProbability()),
+                x + ID_X_OFFSET * 2, y + ID_Y_OFFSET * 2, mIdPaint);
+        canvas.drawText("left eye: " + String.format("%.2f", face.getIsLeftEyeOpenProbability()),
+                x - ID_X_OFFSET * 2, y - ID_Y_OFFSET * 2, mIdPaint);
         // Draws a bounding box around the face.
         float xOffset = scaleX(face.getWidth() / 2.0f);
         float yOffset = scaleY(face.getHeight() / 2.0f);
@@ -134,18 +111,26 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         float right = x + xOffset;
         float bottom = y + yOffset;
         ////////////////////////////////////
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        double scale = Math.min(canvas.getWidth() / face.getWidth(), canvas.getHeight() / face.getHeight());
-        for (Landmark landmark : face.getLandmarks()) {
-            int cx = (int) (landmark.getPosition().x * scale);
-            int cy = (int) (landmark.getPosition().y * scale);
-            canvas.drawCircle(cx, cy, 10, paint);
-        }
-//        drawFaceAnnotations(canvas);
+
+        int mright=Math.round(right);
+        int mbottom=Math.round(bottom);
+        drawFaceAnnotations(canvas);
         canvas.drawRect(left, top, right, bottom, mBoxPaint);
+        Drawable d = ProjectVisionApplication.context().getResources().getDrawable(R.drawable.ic_sunglasses_clear);
+        d.setBounds(new Rect(Math.round(x-mright/2), Math.round(y-mbottom/2),mright-100,mbottom/3));
+        d.draw(canvas);
+//        Bitmap bm = BitmapFactory.decodeResource(ProjectVisionApplication.context().getResources(),
+//                R.drawable.ic_sunglasses_clear);
+//        bm = Bitmap.createScaledBitmap(bm, 80, 80, false);
+//
+////        Rect destRect = new Rect(Math.round(left)/2, Math.round(top)/2,
+////                Math.round(right)/2, Math.round(bottom)/2);
+//        int mleft = Math.round(left + 50);
+//        int mtop = Math.round(top - 50);
+//        int mright = Math.round(right - 50);
+//        int mbottom = Math.round(bottom - 50);
+//        Rect destRect = new Rect(mleft, mtop, mright, mbottom);
+//        canvas.drawBitmap(bm, new Rect(0, 0, 80, 80), destRect, null);
     }
 
     private void drawFaceAnnotations(Canvas canvas) {
