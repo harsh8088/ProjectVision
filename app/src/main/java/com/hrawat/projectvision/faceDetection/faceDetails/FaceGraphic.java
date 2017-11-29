@@ -96,13 +96,13 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         float x = translateX(face.getPosition().x + face.getWidth() / 2);
         float y = translateY(face.getPosition().y + face.getHeight() / 2);
         canvas.drawCircle(x, y, FACE_POSITION_RADIUS, mFacePositionPaint);
-        canvas.drawText("id: " + mFaceId, x + ID_X_OFFSET, y + ID_Y_OFFSET, mIdPaint);
-        canvas.drawText("happiness: " + String.format("%.2f", face.getIsSmilingProbability()),
-                x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
-        canvas.drawText("right eye: " + String.format("%.2f", face.getIsRightEyeOpenProbability()),
-                x + ID_X_OFFSET * 2, y + ID_Y_OFFSET * 2, mIdPaint);
-        canvas.drawText("left eye: " + String.format("%.2f", face.getIsLeftEyeOpenProbability()),
-                x - ID_X_OFFSET * 2, y - ID_Y_OFFSET * 2, mIdPaint);
+//        canvas.drawText("id: " + mFaceId, x + ID_X_OFFSET, y + ID_Y_OFFSET, mIdPaint);
+//        canvas.drawText("happiness: " + String.format(Locale.ENGLISH, "%.2f", face.getIsSmilingProbability()),
+//                x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
+//        canvas.drawText("right eye: " + String.format(Locale.ENGLISH, "%.2f", face.getIsRightEyeOpenProbability()),
+//                x + ID_X_OFFSET * 2, y + ID_Y_OFFSET * 2, mIdPaint);
+//        canvas.drawText("left eye: " + String.format(Locale.ENGLISH, "%.2f", face.getIsLeftEyeOpenProbability()),
+//                x - ID_X_OFFSET * 2, y - ID_Y_OFFSET * 2, mIdPaint);
         // Draws a bounding box around the face.
         float xOffset = scaleX(face.getWidth() / 2.0f);
         float yOffset = scaleY(face.getHeight() / 2.0f);
@@ -111,26 +111,29 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         float right = x + xOffset;
         float bottom = y + yOffset;
         ////////////////////////////////////
-
-        int mright=Math.round(right);
-        int mbottom=Math.round(bottom);
-        drawFaceAnnotations(canvas);
+        int mright = Math.round(right);
+        int mbottom = Math.round(bottom);
+//        drawFaceAnnotations(canvas);
         canvas.drawRect(left, top, right, bottom, mBoxPaint);
+//        double scale = Math.min(canvas.getWidth(), canvas.getHeight());
+//        int left_cx = 0;
+//        int left_cy = 0;
+//        int right_cx = 0;
+//        int right_cy = 0;
+//        for (Landmark landmark : mFace.getLandmarks()) {
+//            if (landmark.getType() == Landmark.LEFT_EYE) {
+//                left_cx = (int) (landmark.getPosition().x * scale);
+//                left_cy = (int) (landmark.getPosition().y * scale);
+//            } else if (landmark.getType() == Landmark.RIGHT_EYE) {
+//                right_cx = (int) (landmark.getPosition().x * scale);
+//                right_cy = (int) (landmark.getPosition().y * scale);
+//            }
+//        }
         Drawable d = ProjectVisionApplication.context().getResources().getDrawable(R.drawable.ic_sunglasses_clear);
-        d.setBounds(new Rect(Math.round(x-mright/2), Math.round(y-mbottom/2),mright-100,mbottom/3));
+//        d.setBounds(new Rect(Math.round(x-mright/2), Math.round(y-mbottom/2),mright-100,mbottom/3));
+        d.setBounds(new Rect(Math.round(x - 200), Math.round(y - 120), Math.round(x + 220), Math.round(y + 120)));
+//            d.setBounds(new Rect(left_cx - 50, left_cy - 50, Math.round(right - 50), Math.round(bottom - 50)));
         d.draw(canvas);
-//        Bitmap bm = BitmapFactory.decodeResource(ProjectVisionApplication.context().getResources(),
-//                R.drawable.ic_sunglasses_clear);
-//        bm = Bitmap.createScaledBitmap(bm, 80, 80, false);
-//
-////        Rect destRect = new Rect(Math.round(left)/2, Math.round(top)/2,
-////                Math.round(right)/2, Math.round(bottom)/2);
-//        int mleft = Math.round(left + 50);
-//        int mtop = Math.round(top - 50);
-//        int mright = Math.round(right - 50);
-//        int mbottom = Math.round(bottom - 50);
-//        Rect destRect = new Rect(mleft, mtop, mright, mbottom);
-//        canvas.drawBitmap(bm, new Rect(0, 0, 80, 80), destRect, null);
     }
 
     private void drawFaceAnnotations(Canvas canvas) {
