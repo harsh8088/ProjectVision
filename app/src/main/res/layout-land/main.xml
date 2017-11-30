@@ -7,16 +7,16 @@
     android:keepScreenOn="true"
     android:orientation="vertical">
 
-    <com.hrawat.projectvision.faceDetection.faceDetails.CameraSourcePreview
+    <com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.hrawat.projectvision.faceDetection.faceDetails.GraphicOverlay
+        <com.hrawat.projectvision.faceDetection.camera_util.GraphicOverlay
             android:id="@+id/faceOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </com.hrawat.projectvision.faceDetection.faceDetails.CameraSourcePreview>
+    </com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview>>
 
     <LinearLayout
         android:layout_width="match_parent"
