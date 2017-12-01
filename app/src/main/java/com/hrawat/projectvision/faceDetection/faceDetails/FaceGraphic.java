@@ -94,7 +94,7 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         // Draws a circle at the position of the detected face, with the face's track id below.
         float x = translateX(face.getPosition().x + face.getWidth() / 2);
         float y = translateY(face.getPosition().y + face.getHeight() / 2);
-        canvas.drawCircle(x, y, FACE_POSITION_RADIUS, mFacePositionPaint);
+//        canvas.drawCircle(x, y, FACE_POSITION_RADIUS, mFacePositionPaint);
         // Draws a bounding box around the face.
         float xOffset = scaleX(face.getWidth() / 2.0f);
         float yOffset = scaleY(face.getHeight() / 2.0f);
@@ -103,7 +103,7 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         float right = x + xOffset;
         float bottom = y + yOffset;
 //        drawFaceAnnotations(canvas);
-        canvas.drawRect(left, top, right, bottom, mBoxPaint);
+//        canvas.drawRect(left, top, right, bottom, mBoxPaint);
         Drawable d = ProjectVisionApplication.context().getResources().getDrawable(R.drawable.ic_sunglasses_clear);
 //        d.setBounds(new Rect(Math.round(x-mright/2), Math.round(y-mbottom/2),mright-100,mbottom/3));
         d.setBounds(new Rect(Math.round(left + 15), Math.round(y - 110), Math.round(x + (x - left)), Math.round(bottom - (bottom - y) / 2 - 20)));
