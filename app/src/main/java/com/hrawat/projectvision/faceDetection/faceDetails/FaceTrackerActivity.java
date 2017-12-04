@@ -23,14 +23,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -44,7 +42,6 @@ import com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview;
 import com.hrawat.projectvision.faceDetection.camera_util.GraphicOverlay;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Activity for the face tracker app.  This app detects faces with the front facing camera, and draws
@@ -59,15 +56,6 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     private static final int RC_HANDLE_GMS = 9001;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
-    //==============================================================================================
-    // Activity Methods
-    //==============================================================================================
-    private FaceDetector.Detections<Face> currentDetectionRules;
-    private Face currentFace;
-    private FaceDetector.Detections<Face> savedDetectionRules;
-    private ArrayList<Face> savedFaceList;
-    private Button btnCapture;
-    private Button btnMatch;
 
     /**
      * Initializes the UI and initiates the creation of a face detector.
@@ -86,28 +74,18 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         } else {
             requestCameraPermission();
         }
-        btnCapture = (Button) findViewById(R.id.btn_capture);
-        btnCapture.setOnClickListener(new View.OnClickListener() {
+        ImageView imageSunglasses = (ImageView) findViewById(R.id.img_sunglasses_clear);
+        imageSunglasses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (savedFaceList != null)
-                    savedFaceList.clear();
-                savedFaceList = new ArrayList<Face>();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        btnCapture.setVisibility(View.GONE);
-                    }
-                }, 2000);
-                savedDetectionRules = currentDetectionRules;
+
             }
         });
-        btnMatch = (Button) findViewById(R.id.btn_match);
-        btnMatch.setOnClickListener(new View.OnClickListener() {
+        ImageView imageSunglassesClear = (ImageView) findViewById(R.id.img_sunglasses);
+        imageSunglassesClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                compareFaceLandmarks(currentDetectionRules, currentFace);
+
             }
         });
     }
@@ -315,10 +293,6 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
             mOverlay.add(mFaceGraphic);
             mFaceGraphic.updateFace(face);
-            currentDetectionRules = detectionResults;
-            currentFace = face;
-            if (savedFaceList != null)
-                savedFaceList.add(face);
         }
 
         /**
@@ -341,23 +315,5 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         }
     }
 
-    private void compareFaceLandmarks(FaceDetector.Detections<Face> detectionResults, Face face) {
-        boolean unMatched = false;
-        for (Face face1 : savedFaceList) {
-            if (face.getLandmarks() == face1.getLandmarks()) {
-                Toast.makeText(FaceTrackerActivity.this, "Matched", Toast.LENGTH_SHORT).show();
-                unMatched = false;
-                break;
-            } else {
-                unMatched = true;
-            }
-        }
-        if (unMatched)
-            Toast.makeText(FaceTrackerActivity.this, "Not Matched", Toast.LENGTH_SHORT).show();
-//        if (savedFace.getLandmarks() == face.getLandmarks()) {
-//            Toast.makeText(FaceTrackerActivity.this, "Matched", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(FaceTrackerActivity.this, "Not Matched", Toast.LENGTH_SHORT).show();
-//        }
-    }
+
 }
