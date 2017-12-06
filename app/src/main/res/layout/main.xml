@@ -23,31 +23,38 @@
         </com.hrawat.projectvision.faceDetection.camera_util.CameraSourcePreview>
     </LinearLayout>
 
-
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/img_sunglasses_clear"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:src="@drawable/ic_sunglasses_clear"
-            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_marginLeft="8dp"
-            android:id="@+id/img_sunglasses"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:src="@drawable/ic_sunglasses"
-            />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/img_sunglasses_clear"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_sunglasses_clear"
+                />
+
+            <ImageView
+                android:id="@+id/img_sunglasses"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_sunglasses"
+                />
+            <ImageView
+                android:id="@+id/img_crown"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_crown"
+                />
+        </LinearLayout>
     </HorizontalScrollView>
 </LinearLayout>

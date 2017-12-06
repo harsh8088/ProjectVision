@@ -56,6 +56,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     private static final int RC_HANDLE_GMS = 9001;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
+    private int gogglesType = 0;
 
     /**
      * Initializes the UI and initiates the creation of a face detector.
@@ -78,14 +79,21 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         imageSunglasses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                gogglesType = 0;
             }
         });
         ImageView imageSunglassesClear = (ImageView) findViewById(R.id.img_sunglasses);
         imageSunglassesClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                gogglesType = 1;
+            }
+        });
+        ImageView imageCrown = (ImageView) findViewById(R.id.img_crown);
+        imageCrown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gogglesType = 2;
             }
         });
     }
@@ -292,7 +300,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         @Override
         public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
             mOverlay.add(mFaceGraphic);
-            mFaceGraphic.updateFace(face);
+            mFaceGraphic.updateFace(face, gogglesType);
         }
 
         /**
@@ -314,6 +322,4 @@ public final class FaceTrackerActivity extends AppCompatActivity {
             mOverlay.remove(mFaceGraphic);
         }
     }
-
-
 }
