@@ -109,19 +109,23 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         Drawable d;
         if (gogglesType == 0) {
             d = ProjectVisionApplication.context().getResources().getDrawable(R.drawable.ic_sunglasses_clear);
-            d.setBounds(new Rect(Math.round(left + 15), Math.round(y - 110), Math.round(x + (x - left)), Math.round(bottom - (bottom - y) / 2 - 40)));
+            d.setBounds(new Rect(Math.round(left + 15), Math.round(y - 110), Math.round(x + (x - left)),
+                    Math.round(bottom - (bottom - y) / 2 - 40)));
         } else if (gogglesType == 1) {
             d = ProjectVisionApplication.context().getResources().getDrawable(R.drawable.ic_sunglasses);
-            d.setBounds(new Rect(Math.round(left + 15), Math.round(y - 110), Math.round(x + (x - left)), Math.round(bottom - (bottom - y) / 2 - 40)));
+            d.setBounds(new Rect(Math.round(left + 15), Math.round(y - 110), Math.round(x + (x - left)),
+                    Math.round(bottom - (bottom - y) / 2 - 40)));
         } else {
             d = ProjectVisionApplication.context().getResources().getDrawable(R.drawable.ic_crown);
-            d.setBounds(new Rect(Math.round(left + 30), Math.round(y - 110), Math.round(x + (x - left)), Math.round(bottom - (bottom - y) / 2 - 40)));
+            d.setBounds(new Rect(Math.round(left + 30), Math.round(top), Math.round(right-50),
+                    Math.round((bottom ) / 3 + 40)));
         }
 //        d.setBounds(new Rect(Math.round(x-mright/2), Math.round(y-mbottom/2),mright-100,mbottom/3));
 //        d.setBounds(new Rect(Math.round(left + 15), Math.round(y - 110), Math.round(x + (x - left)), Math.round(bottom - (bottom - y) / 2 - 40)));
 //            d.setBounds(new Rect(left_cx - 50, left_cy - 50, Math.round(right - 50), Math.round(bottom - 50)));
         d.draw(canvas);
     }
+
 
     private void drawFaceAnnotations(Canvas canvas) {
         Paint paint = new Paint();
